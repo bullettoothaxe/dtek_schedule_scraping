@@ -3,3 +3,4 @@ lxml
 requests
 selenium
 webdriver-manager
+pyTelegramBotAPI
