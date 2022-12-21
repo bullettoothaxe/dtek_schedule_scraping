@@ -4,11 +4,11 @@ from datetime import date
 
 
 @bot.message_handler(commands=['schedule'])
-def start_handler(message):
+def schedule_handler(message):
     chat_id = message.chat.id
     bot.send_message(chat_id, 'Loading...')
-    message = get_schedule_message(date.today())
-    bot.send_message(chat_id, message)
+    schedule_message = get_schedule_message(date.today())
+    bot.send_message(chat_id, schedule_message)
 
 
 def main():
