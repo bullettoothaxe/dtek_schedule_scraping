@@ -7,8 +7,11 @@ from datetime import date
 def schedule_handler(message):
     chat_id = message.chat.id
     bot.send_message(chat_id, 'Loading...')
-    schedule_message = get_schedule_message(date.today())
-    bot.send_message(chat_id, schedule_message)
+    try:
+        schedule_message = get_schedule_message(date.today())
+        bot.send_message(chat_id, schedule_message)
+    except:
+        bot.send_message(chat_id, "Oops, something went wrong")
 
 
 def main():
