@@ -54,20 +54,19 @@ def get_scheduled_signals(tds):
 
     for td in tds:
         class_name = td['class'][0]
-        if class_name != 'current-day':
+        if class_name == 'current-day':
+            messages.append(td.text.strip())
+        else:
             messages.append(class_name_to_message(class_name))
-
-    if len(messages) != 24:
-        print('There should be 24 items')
 
     return messages
 
 
 def prepare_client_message(signals):
-    message = ""
+    message = f"{signals[0]}:\n\n"
 
     for index, period in enumerate(schedule_time):
-        message += f"{period}: {signals[index]} \n"
+        message += f"{period}: {signals[index+1]} \n"
 
     return message
 
@@ -121,12 +120,13 @@ def get_html_to_scrape():
 
 
 @cache
-def get_schedule_message(_date):
+def get_schedule_message(date):
     html = get_html_to_scrape()
     soup = BeautifulSoup(html, 'lxml')
     today_row = soup.find(id="tableRenderElem").find(class_="yesterday-row").find_next('tr')
     tds = today_row.find_all('td')
     signals = get_scheduled_signals(tds)
     message = prepare_client_message(signals)
+    final_message = f"{date}\n\n{message}"
 
-    return message
+    return final_message
