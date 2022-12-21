@@ -77,14 +77,15 @@ def get_html_to_scrape():
     options = webdriver.ChromeOptions()
 
     # options.add_argument("--headless")
-    # options.add_argument("--disable-extensions")
-    # options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--no-sandbox")
 
-    # driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(options=options)
 
-    driver = webdriver.Chrome(service=BraveService(ChromeDriverManager(chrome_type=ChromeType.BRAVE).install()),
-                              options=options)
+    # driver = webdriver.Chrome(service=BraveService(ChromeDriverManager(chrome_type=ChromeType.BRAVE).install()),
+    #                           options=options)
 
     driver.get(url)
 
