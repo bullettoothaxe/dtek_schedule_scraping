@@ -16,9 +16,9 @@ def class_name_to_message(class_name):
     if class_name == 'cell-non-scheduled':
         return '✅'  # '💡'  # light
     elif class_name == 'cell-scheduled-maybe':
-        return '🤷'  # maybe
+        return '🤷‍♀️'  # maybe
     elif class_name == 'cell-scheduled':
-        return '🚫'  # '🕯'  # shutdown
+        return '❌'  # '🕯'  # shutdown
 
 
 schedule_time = [

@@ -1,6 +1,12 @@
 from schedules import get_schedule_message
 from bot import bot
-from datetime import date
+from datetime import datetime
+import pytz
+
+
+def get_today_date():
+    now = datetime.now(pytz.timezone('Europe/Kyiv'))
+    return now.date()
 
 
 @bot.message_handler(commands=['schedule'])
@@ -8,7 +14,8 @@ def schedule_handler(message):
     chat_id = message.chat.id
     bot.send_message(chat_id, 'Loading...')
     try:
-        schedule_message = get_schedule_message(date.today())
+        today = get_today_date()
+        schedule_message = get_schedule_message(today)
         bot.send_message(chat_id, schedule_message)
     except:
         bot.send_message(chat_id, "Oops, something went wrong")
