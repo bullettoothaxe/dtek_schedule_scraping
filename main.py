@@ -16,7 +16,8 @@ def schedule_handler(message):
     try:
         today = get_today_date()
         schedule_message = get_schedule_message(today)
-        bot.send_message(chat_id, schedule_message)
+        formatted_message = f'<pre>{schedule_message}</pre>'
+        bot.send_message(chat_id, formatted_message, parse_mode='HTML')
     except:
         bot.send_message(chat_id, "Oops, something went wrong")
 
