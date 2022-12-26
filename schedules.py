@@ -120,11 +120,25 @@ def get_html_to_scrape():
     return html
 
 
+def get_today_row(soup):
+    table = soup.find(id="tableRenderElem")
+
+    yesterday_row = table.find(class_="yesterday-row")
+    monday_row_row = table.find(class_="monday-row")
+
+    if yesterday_row:
+        today_row = yesterday_row.find_next('tr')
+    else:
+        today_row = monday_row_row
+
+    return today_row
+
+
 @cache
 def get_schedule_message(date):
     html = get_html_to_scrape()
     soup = BeautifulSoup(html, 'lxml')
-    today_row = soup.find(id="tableRenderElem").find(class_="yesterday-row").find_next('tr')
+    today_row = get_today_row(soup)
     tds = today_row.find_all('td')
     signals = get_scheduled_signals(tds)
     message = prepare_client_message(signals)
