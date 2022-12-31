@@ -124,12 +124,12 @@ def get_today_row(soup):
     table = soup.find(id="tableRenderElem")
 
     yesterday_row = table.find(class_="yesterday-row")
-    monday_row_row = table.find(class_="monday-row")
+    monday_row = table.find(class_="monday-row")
 
     if yesterday_row:
         today_row = yesterday_row.find_next('tr')
     else:
-        today_row = monday_row_row
+        today_row = monday_row
 
     return today_row
 

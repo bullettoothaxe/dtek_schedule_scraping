@@ -1,5 +1,6 @@
 import telebot
 from env import BOT_TOKEN
+import users
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -9,6 +10,14 @@ def schedule_handler(message):
     chat_id = message.chat.id
     welcome_message = 'Welcome to the Light Bot! \nYou can open the "Menu" section to explore the bot possibilities.'
     bot.send_message(chat_id, welcome_message)
+
+
+@bot.message_handler(commands=['users_anal'])
+def schedule_handler(message):
+    chat_id = message.chat.id
+    active_users = users.read()
+    message = f"Users count: {len(active_users)}"
+    bot.send_message(chat_id, message)
 
 # class IsAdmin(telebot.custom_filters.SimpleCustomFilter):
 #     key = 'is_chat_admin'
