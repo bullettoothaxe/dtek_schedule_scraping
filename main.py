@@ -10,6 +10,11 @@ def get_today_date():
     return now.date()
 
 
+def save_analytics(message):
+    user_id = message.from_user.username or message.chat.id
+    add_user(user_id)
+
+
 @bot.message_handler(commands=['schedule'])
 def schedule_handler(message):
     chat_id = message.chat.id
@@ -19,7 +24,7 @@ def schedule_handler(message):
         schedule_message = get_schedule_message(today)
         formatted_message = f'<pre>{schedule_message}</pre>'
         bot.send_message(chat_id, formatted_message, parse_mode='HTML')
-        add_user(chat_id)
+        save_analytics(message)
     except:
         bot.send_message(chat_id, "Oops, something went wrong")
 
