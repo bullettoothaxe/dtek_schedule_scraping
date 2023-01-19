@@ -6,14 +6,14 @@ bot = telebot.TeleBot(BOT_TOKEN)
 
 
 @bot.message_handler(commands=['start'])
-def schedule_handler(message):
+def start_handler(message):
     chat_id = message.chat.id
     welcome_message = 'Welcome to the Light Bot! \nYou can open the "Menu" section to explore the bot possibilities.'
     bot.send_message(chat_id, welcome_message)
 
 
 @bot.message_handler(commands=['users_anal'])
-def schedule_handler(message):
+def users_anal_handler(message):
     chat_id = message.chat.id
     active_users = users.read()
     message = f"Users count: {len(active_users)}"
