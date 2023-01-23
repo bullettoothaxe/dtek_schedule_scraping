@@ -3,6 +3,7 @@ from bot import bot
 from datetime import datetime
 import pytz
 from users import add_user
+from env import SUPPORT_MESSAGE
 
 
 def get_today_date():
@@ -15,6 +16,12 @@ def save_analytics(message):
     add_user(user_id)
 
 
+def send_support_message(today, chat_id):
+    weekday = today.strftime('%A')
+    if weekday == 'Friday':
+        bot.send_message(chat_id, SUPPORT_MESSAGE, parse_mode='HTML', disable_web_page_preview=True)
+
+
 @bot.message_handler(commands=['schedule'])
 def schedule_handler(message):
     chat_id = message.chat.id
@@ -25,6 +32,7 @@ def schedule_handler(message):
         formatted_message = f'<pre>{schedule_message}</pre>'
         bot.send_message(chat_id, formatted_message, parse_mode='HTML')
         save_analytics(message)
+        send_support_message(today, chat_id)
     except:
         bot.send_message(chat_id, "Oops, something went wrong")
 
