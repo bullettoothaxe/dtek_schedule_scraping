@@ -18,7 +18,7 @@ def save_analytics(message):
 
 def send_support_message(today, chat_id):
     weekday = today.strftime('%A')
-    if weekday == 'Friday':
+    if weekday in ['Friday', 'Saturday', 'Sunday']:
         bot.send_message(chat_id, SUPPORT_MESSAGE, parse_mode='HTML', disable_web_page_preview=True)
 
 
