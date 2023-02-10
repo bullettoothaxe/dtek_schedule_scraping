@@ -25,11 +25,12 @@ def send_support_message(today, chat_id):
 @bot.message_handler(commands=['schedule'])
 def schedule_handler(message):
     chat_id = message.chat.id
-    bot.send_message(chat_id, 'Loading...')
+    loading_message = bot.send_message(chat_id, 'Loading...')
     try:
         today = get_today_date()
         schedule_message = get_schedule_message(today)
         formatted_message = f'<pre>{schedule_message}</pre>'
+        bot.delete_message(chat_id, loading_message.message_id)
         bot.send_message(chat_id, formatted_message, parse_mode='HTML')
         save_analytics(message)
         send_support_message(today, chat_id)
